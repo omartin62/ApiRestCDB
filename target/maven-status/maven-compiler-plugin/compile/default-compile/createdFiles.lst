@@ -1,0 +1,7 @@
+com\omproyectos\beans\Concepto.class
+com\omproyectos\apirest_2\resources\JakartaEE8Resource.class
+com\omproyectos\apirest_2\JakartaRestConfiguration.class
+com\omproyectos\beans\Usuario.class
+com\omproyectos\beans\Categoria.class
+com\omproyectos\beans\Deporte.class
+com\omproyectos\beans\Conexion.class
