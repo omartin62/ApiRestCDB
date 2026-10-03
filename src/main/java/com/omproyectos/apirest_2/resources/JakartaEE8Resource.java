@@ -38,7 +38,19 @@ public class JakartaEE8Resource {
          queFecha_1 = queFecha.replace("-", "/");
 
          if (queFecha_1.length() == 10){
-              query = "  select \n"
+              query =  "  select \n"
+                    + " fecemi as fecha, \n"
+                    + " 0 as CodConcepto, \n"
+                    + " 'Saldo Anterior' as Descripcion, \n"
+                    + " case \n" 
+                    + "	when salean >= 0 then 'IN' \n"
+                    + " else 'EG' \n"
+                    + " end as TipoMovimiento, \n"
+                    + " salean as totalConcepto \n"
+                    + " from cpHis_Caja \n"
+                    + " where convert(varchar(10),fecemi,103) = '" + queFecha_1 + "' \n"
+                    + " union \n"
+                    + " select \n"  
                     + "  distinct fecha, codcon CodConcepto,\n"
                     + "  (select cpConceptos.descripcion from cpConceptos where codcon = cpConceptos.id) as Descripcion,\n"
                     + "  (select cpConceptos.tipo from cpConceptos where codcon = cpConceptos.id) as TipoMovimiento,\n"
@@ -46,8 +58,8 @@ public class JakartaEE8Resource {
                     + "  from cpHis_Movi\n"
                     + "  where convert(varchar(10),fecha,103) = '" + queFecha_1 + "' \n"
                     + "  and anulo <> 'S'\n"
-                    + "  group by codcon, fecha\n"
-                    + "  order by codcon";
+                    + "  group by codcon, fecha, numcaj \n"
+                    + "  order by CodConcepto";
          } else {
               query = " select \n" +
                       " distinct codcon CodConcepto,\n" +
